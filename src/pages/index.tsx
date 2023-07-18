@@ -2,7 +2,12 @@ import FormLogin from "@/components/FormLogin";
 import Greeting from "@/components/Greeting";
 import { useState } from "react";
 
-const userList = [
+type User = {
+  username: string;
+  password: string;
+};
+
+const userList: User[] = [
   {
     username: "rasita",
     password: "rasita123456",
@@ -17,11 +22,29 @@ const userList = [
   },
 ];
 
+function validateUsernameAndPassword({ username, password }: User): boolean {
+  const foundUser = userList.find((user) => {
+    return user.username === username && user.password === password;
+  });
+
+  return !!foundUser;
+}
+
+async function loginApi(user: User): Promise<boolean> {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      const isUserValid = validateUsernameAndPassword(user);
+
+      if (isUserValid) resolve(true);
+      else resolve(false);
+    }, 1000);
+  });
+}
+
 export default function HomePage() {
   const [isLogin, setIsLogin] = useState(false);
+  const [isLoading, setLoading] = useState(false);
   const [currentUsername, setCurrentUsername] = useState("");
-
-  console.log("isLogin", isLogin ? "Yes" : "No");
 
   if (isLogin) {
     return (
@@ -37,18 +60,21 @@ export default function HomePage() {
 
   return (
     <FormLogin
-      onSubmit={(username, password) => {
-        const logginPassed = userList.find(
-          (user) => user.username === username && user.password === password,
-        );
+      isLoading={isLoading}
+      onSubmit={async (user) => {
+        setLoading(true);
 
-        if (logginPassed) {
+        const isLoginPass = await loginApi(user);
+
+        if (isLoginPass) {
           setIsLogin(true);
-          setCurrentUsername(username);
+          setCurrentUsername(user.username);
         } else {
           setIsLogin(false);
           setCurrentUsername("");
         }
+
+        setLoading(false);
       }}
     />
   );
