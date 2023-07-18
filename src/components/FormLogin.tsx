@@ -16,10 +16,10 @@ export default function FormLogin(props: Props) {
   const isLoadingVisible = !!props.isLoading;
 
   return (
-    <div className="flex justify-center items-center w-screen h-screen flex-col">
+    <div className="flex h-screen w-screen flex-col items-center justify-center">
       <h1 className="mb-8 text-xl">Customer Connect</h1>
       <form
-        className="flex flex-col gap-4 w-[280px]"
+        className="flex w-[280px] flex-col gap-4"
         onSubmit={(e) => {
           e.preventDefault();
 
@@ -42,7 +42,7 @@ export default function FormLogin(props: Props) {
           <label htmlFor="username">Username</label>
           <input
             disabled={isFormDisabled}
-            className="px-4 py-2 rounded-md text-gray-500"
+            className="rounded-md px-4 py-2 text-gray-500"
             id="username"
             type="text"
             placeholder="username"
@@ -53,7 +53,7 @@ export default function FormLogin(props: Props) {
           <label htmlFor="password">Password</label>
           <input
             disabled={isFormDisabled}
-            className="px-4 py-2 rounded-md text-gray-500"
+            className="rounded-md px-4 py-2 text-gray-500"
             id="password"
             type="password"
             placeholder="password"
@@ -63,7 +63,7 @@ export default function FormLogin(props: Props) {
         <Button
           disabled={isFormDisabled}
           variant="primary"
-          className="px-4 py-2 rounded-md bg-green-300 text-white"
+          className="rounded-md bg-green-300 px-4 py-2 text-white"
         >
           Login
         </Button>

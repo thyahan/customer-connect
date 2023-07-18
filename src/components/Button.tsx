@@ -22,7 +22,7 @@ export default function Button(props: Props) {
   return (
     <button
       {...props}
-      className={"px-4 py-2 rounded-md text-white border border-white " + color}
+      className={"rounded-md border border-white px-4 py-2 text-white " + color}
     />
   );
 }
